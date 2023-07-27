@@ -51,7 +51,7 @@ You can find me on:
   <a href="https://www.instagram.com/ahnafeanzs_" class="button" target="blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo-768x432.png" alt="Instagram" width="50">
   </a>
-  <a href="https://twitter.com/marvaathatillah" class="button" target="blank" rel="noopener noreferrer">
+  <a href="https://twitter.com/marvaathatillah" class="button" target="blank" rel="noopener noreferrer" style="background-color=white">
     <img src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE-768x432.png" alt="Twitter" width="50">
   </a>
 </p>
