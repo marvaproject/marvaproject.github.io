@@ -6,18 +6,12 @@
   A stylish and interactive portfolio website showcasing my projects, built with HTML, JavaScript, and Tailwind CSS. View live demo at: [Demo Link](https://your-portfolio-demo-link.com)
 </p>
 
-<!-- Screenshots/GIFs -->
-<p align="center">
-  <img src="https://your-image-link.com/screenshot1.png" alt="Screenshot 1" width="800">
-</p>
-
 <!-- Table of Contents -->
 ## Table of Contents
 - [About](#about)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [How to Use](#how-to-use)
-- [Contributing](#contributing)
 - [License](#license)
 
 <!-- About -->
@@ -45,16 +39,22 @@ This portfolio website is a showcase of my best projects, where visitors can lea
 3. Click on a project card to open a pop-up with more details about the project.
 4. Enjoy exploring my portfolio and get in touch with me if you have any questions or opportunities!
 
-<!-- Contributing -->
-## Contributing
-Contributions are welcome! If you find any issues or want to suggest improvements, feel free to open an issue or create a pull request.
+<!-- Link Website -->
+## Website
+You can view my portfolio website by clicking the button below:
+
+<p align="center">
+  <a href="https://your-portfolio-website-link.com" target="_blank" rel="noopener noreferrer">
+    <img src="https://your-portfolio-website-button-image.com" alt="View Website" width="200">
+  </a>
+</p>
 
 <!-- License -->
 ## License
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under Personal License. All rights reserved.
 
 <!-- Footer -->
 ---
 <p align="center">
-  &copy; 2023 Your Name. All rights reserved.
+  &copy; 2023 Your Name.
 </p>
