@@ -12,6 +12,7 @@
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [How to Use](#how-to-use)
+- [Links](#links)
 - [License](#license)
 
 <!-- About -->
@@ -39,13 +40,19 @@ This portfolio website is a showcase of my best projects, where visitors can lea
 3. Click on a project card to open a pop-up with more details about the project.
 4. Enjoy exploring my portfolio and get in touch with me if you have any questions or opportunities!
 
-<!-- Link Website -->
-## Website
-You can view my portfolio website by clicking the button below:
+<!-- Links -->
+## Links
+You can find me on:
 
 <p align="center">
-  <a href="https://your-portfolio-website-link.com" target="_blank" rel="noopener noreferrer">
-    <img src="https://your-portfolio-website-button-image.com" alt="View Website" width="200">
+  <a href="mailto:your-email@example.com" target="_blank" rel="noopener noreferrer">
+    <img src="https://your-email-icon-image.com" alt="Email" width="50">
+  </a>
+  <a href="https://www.instagram.com/your-instagram-profile" target="_blank" rel="noopener noreferrer">
+    <img src="https://your-instagram-icon-image.com" alt="Instagram" width="50">
+  </a>
+  <a href="https://twitter.com/your-twitter-profile" target="_blank" rel="noopener noreferrer">
+    <img src="https://your-twitter-icon-image.com" alt="Twitter" width="50">
   </a>
 </p>
 
