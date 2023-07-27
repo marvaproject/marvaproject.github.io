@@ -52,7 +52,10 @@ You can find me on:
     <img src="https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo-768x432.png" alt="Instagram" width="50">
   </a>
   <a href="https://twitter.com/marvaathatillah" class="button" target="blank" rel="noopener noreferrer">
-    <img src="https://admin.itsnicethat.com/images/MEPeS1j8IRTti1OF_E9ajuZSAJw=/243516/width-1440/twitter-x-logo-graphic-design-itsnicethat-01.jpeg" alt="Twitter" width="50px">
+    <img src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE-768x432.png" alt="Twitter" width="50">
+  </a>
+  <a href="https://g.dev/marvaathatillah" class="button" target="blank" rel="noopener noreferrer">
+    <img src="https://seeklogo.com/images/G/google-developers-logo-F8BF3155AC-seeklogo.com.png" alt="GoogleDev" width="50">
   </a>
 </p>
 
