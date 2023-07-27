@@ -3,7 +3,7 @@
 
 <!-- Project Description -->
 <p align="center">
-  A stylish and interactive portfolio website showcasing my projects, built with HTML, JavaScript, and Tailwind CSS. View live demo on [the website](https://marvaproject.github.io)
+  A stylish and interactive portfolio website showcasing my projects, built with HTML, JavaScript, and Tailwind CSS. View live demo at https://marvaproject.github.io
 </p>
 
 <!-- Table of Contents -->
