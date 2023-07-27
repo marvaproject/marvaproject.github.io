@@ -45,13 +45,14 @@ This portfolio website is a showcase of my best projects, where visitors can lea
 You can find me on:
 
 <p align="center">
-  <a href="mailto:your-email@example.com" target="_blank" rel="noopener noreferrer">
+  <a href="mailto:your-email@example.com" class="button" target="_blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2021/05/Gmail-logo.png" alt="Email" width="50">
+    <p>
   </a>
-  <a href="https://www.instagram.com/your-instagram-profile" target="_blank" rel="noopener noreferrer">
+  <a href="https://www.instagram.com/ahnafeanzs_" class="button" target="_blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo-768x432.png" alt="Instagram" width="50">
   </a>
-  <a href="https://twitter.com/your-twitter-profile" target="_blank" rel="noopener noreferrer">
+  <a href="https://twitter.com/marvaathatillah" class="button" target="_blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE-768x432.png" alt="Twitter" width="50">
   </a>
 </p>
