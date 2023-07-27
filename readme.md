@@ -46,22 +46,22 @@ You can find me on:
 
 <p align="center">
   <a href="mailto:your-email@example.com" target="_blank" rel="noopener noreferrer">
-    <img src="https://your-email-icon-image.com" alt="Email" width="50">
+    <img src="https://1000logos.net/wp-content/uploads/2021/05/Gmail-logo.png" alt="Email" width="50">
   </a>
   <a href="https://www.instagram.com/your-instagram-profile" target="_blank" rel="noopener noreferrer">
-    <img src="https://your-instagram-icon-image.com" alt="Instagram" width="50">
+    <img src="https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo-768x432.png" alt="Instagram" width="50">
   </a>
   <a href="https://twitter.com/your-twitter-profile" target="_blank" rel="noopener noreferrer">
-    <img src="https://your-twitter-icon-image.com" alt="Twitter" width="50">
+    <img src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE-768x432.png" alt="Twitter" width="50">
   </a>
 </p>
 
 <!-- License -->
 ## License
-This project is licensed under Personal License. All rights reserved.
+This project is licensed under Personal License.
 
 <!-- Footer -->
 ---
 <p align="center">
-  &copy; 2023 Your Name.
+  &copy; 2023 Marva Athatillah. All rights reserved.
 </p>
