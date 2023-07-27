@@ -3,7 +3,7 @@
 
 <!-- Project Description -->
 <p align="center">
-  A stylish and interactive portfolio website showcasing my projects, built with HTML, JavaScript, and Tailwind CSS. View live demo at: [Demo Link](https://your-portfolio-demo-link.com)
+  A stylish and interactive portfolio website showcasing my projects, built with HTML, JavaScript, and Tailwind CSS. View live demo at: `marvaproject.github.io`
 </p>
 
 <!-- Table of Contents -->
@@ -35,7 +35,7 @@ This portfolio website is a showcase of my best projects, where visitors can lea
 
 <!-- How to Use -->
 ## How to Use
-1. Open the `index.html` file in your web browser.
+1. Open the `marvaproject.github.com` file in your web browser.
 2. Browse through the project cards to see the overview of each project.
 3. Click on a project card to open a pop-up with more details about the project.
 4. Enjoy exploring my portfolio and get in touch with me if you have any questions or opportunities!
