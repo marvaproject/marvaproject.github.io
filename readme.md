@@ -48,6 +48,8 @@ You can find me on:
   <a href="mailto:your-email@example.com" class="button" target="blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2021/05/Gmail-logo.png" alt="Email" width="50">
   </a>
+  <a href="https://img.shields.io/twitter/follow/marvaathatillah?label=Twitter&style=plastic&logo=twitter
+"></a>
   <a href="https://www.instagram.com/ahnafeanzs_" class="button" target="blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo-768x432.png" alt="Instagram" width="50">
   </a>
