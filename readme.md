@@ -44,12 +44,11 @@ This portfolio website is a showcase of my best projects, where visitors can lea
 ## Links
 You can find me on:
 
-<p left="center">
-  <a href="mailto:your-email@example.com" class="button" target="blank" rel="noopener noreferrer">
+<div left="center">
+(https://img.shields.io/twitter/follow/marvaathatillah?label=Twitter&style=plastic&logo=twitter)
+  <!-- <a href="mailto:your-email@example.com" class="button" target="blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2021/05/Gmail-logo.png" alt="Email" width="50">
   </a>
-  <a href="https://img.shields.io/twitter/follow/marvaathatillah?label=Twitter&style=plastic&logo=twitter
-"></a>
   <a href="https://www.instagram.com/ahnafeanzs_" class="button" target="blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo-768x432.png" alt="Instagram" width="50">
   </a>
@@ -58,8 +57,8 @@ You can find me on:
   </a>
   <a href="https://g.dev/marvaathatillah" class="button" target="blank" rel="noopener noreferrer">
     <img src="https://seeklogo.com/images/G/google-developers-logo-F8BF3155AC-seeklogo.com.png" alt="GoogleDev" width="50">
-  </a>
-</p>
+  </a> -->
+</div>
 
 <!-- License -->
 ## License
