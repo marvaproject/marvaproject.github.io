@@ -45,19 +45,14 @@ This portfolio website is a showcase of my best projects, where visitors can lea
 You can find me on:
 
 <div left="center">
-<img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/marvaathatillah?style=plastic&logo=twitter">
-  <!-- <a href="mailto:your-email@example.com" class="button" target="blank" rel="noopener noreferrer">
-    <img src="https://1000logos.net/wp-content/uploads/2021/05/Gmail-logo.png" alt="Email" width="50">
-  </a>
-  <a href="https://www.instagram.com/ahnafeanzs_" class="button" target="blank" rel="noopener noreferrer">
-    <img src="https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo-768x432.png" alt="Instagram" width="50">
-  </a>
-  <a href="https://twitter.com/marvaathatillah" class="button" target="blank" rel="noopener noreferrer">
-    <img src="https://1000logos.net/wp-content/uploads/2017/06/Twitter-Log%D0%BE-768x432.png" alt="Twitter" width="50">
-  </a>
-  <a href="https://g.dev/marvaathatillah" class="button" target="blank" rel="noopener noreferrer">
-    <img src="https://seeklogo.com/images/G/google-developers-logo-F8BF3155AC-seeklogo.com.png" alt="GoogleDev" width="50">
-  </a> -->
+<img alt="Static Badge" src="https://img.shields.io/badge/Twitter-follow?style=plastic&logo=twitter&color=black&link=https%3A%2F%2Ftwitter.com%2Fmarvaathatillah">
+
+<img alt="Static Badge" src="https://img.shields.io/badge/Instagram-follow?style=plastic&logo=instagram&color=black&link=https%3A%2F%2Fwww.instagram.com%2Fahnafeanzs_">
+
+<img alt="Static Badge" src="https://img.shields.io/badge/LinkedIn-follow?style=plastic&logo=linkedin&logoColor=%232596be&color=black&link=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fmarvaathatillah">
+
+
+<img alt="Static Badge" src="https://img.shields.io/badge/Dribbble-follow?style=plastic&logo=dribbble&color=black&link=https%3A%2F%2Fdribbble.com%2FAhnafeanzsUI">
 </div>
 
 <!-- License -->
