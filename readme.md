@@ -45,7 +45,7 @@ This portfolio website is a showcase of my best projects, where visitors can lea
 You can find me on:
 
 <div left="center">
-[(https://img.shields.io/twitter/follow/marvaathatillah?label=Twitter&style=plastic&logo=twitter)]
+<img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/marvaathatillah?style=plastic&logo=twitter">
   <!-- <a href="mailto:your-email@example.com" class="button" target="blank" rel="noopener noreferrer">
     <img src="https://1000logos.net/wp-content/uploads/2021/05/Gmail-logo.png" alt="Email" width="50">
   </a>
