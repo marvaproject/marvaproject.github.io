@@ -1,0 +1,1636 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent Portfolio | Software Engineer</title>
+
+    <!-- Tailwind CSS v3.4 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Oswald for headers (Valorant vibe) and Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              val: {
+                red: "#ff4655",
+                dark: "#0f1923",
+                light: "#ece8e1",
+                gray: "#8b978f",
+                darkgray: "#1f2b36",
+                yellow: "#d1d158",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              header: ["Oswald", "sans-serif"],
+            },
+            backgroundImage: {
+              "grid-pattern":
+                "linear-gradient(to right, #2c3e50 1px, transparent 1px), linear-gradient(to bottom, #2c3e50 1px, transparent 1px)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Custom Utilities for Shapes */
+      .clip-corner-br {
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 92% 100%, 0 100%);
+      }
+      .clip-corner-tl {
+        clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%, 0 15%);
+      }
+      .clip-corner-both {
+        clip-path: polygon(5% 0, 100% 0, 100% 85%, 95% 100%, 0 100%, 0 15%);
+      }
+      .clip-button {
+        clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 0 100%);
+      }
+      .clip-modal {
+        clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
+      }
+
+      /* Background Grid Animation */
+      .bg-grid-size {
+        background-size: 40px 40px;
+      }
+
+      /* Custom Checkbox Styling */
+      .chk-box:checked + div {
+        background-color: #ff4655;
+        border-color: #ff4655;
+      }
+      .chk-box:checked + div::after {
+        content: "✓";
+        color: white;
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        line-height: 16px;
+      }
+
+      /* Card Entry Animation */
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-card {
+        animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+
+      /* Modal Animation */
+      #project-modal {
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease;
+      }
+      #project-modal.hidden-modal {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      #project-modal:not(.hidden-modal) {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      /* --- NEW ANIMATIONS --- */
+
+      /* 1. GLITCH EFFECT (For Photo & Button) */
+      @keyframes glitch-anim-1 {
+        0% {
+          clip-path: inset(20% 0 80% 0);
+          transform: translate(-2px, 1px);
+        }
+        20% {
+          clip-path: inset(60% 0 10% 0);
+          transform: translate(2px, -1px);
+        }
+        40% {
+          clip-path: inset(40% 0 50% 0);
+          transform: translate(-2px, 2px);
+        }
+        60% {
+          clip-path: inset(80% 0 5% 0);
+          transform: translate(2px, -2px);
+        }
+        80% {
+          clip-path: inset(10% 0 70% 0);
+          transform: translate(-1px, 1px);
+        }
+        100% {
+          clip-path: inset(30% 0 20% 0);
+          transform: translate(1px, -1px);
+        }
+      }
+
+      .glitch-hover {
+        position: relative;
+      }
+
+      /* Duplicate content for glitch effect on hover */
+      .glitch-hover:hover::before,
+      .glitch-hover:hover::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        opacity: 0.5;
+      }
+
+      .glitch-hover:hover img {
+        animation: glitch-anim-1 0.3s infinite linear alternate-reverse;
+        filter: hue-rotate(90deg) saturate(200%);
+      }
+
+      /* Button specific glitch */
+      .btn-glitch:hover {
+        animation: glitch-anim-1 0.2s infinite linear alternate-reverse;
+      }
+
+      /* 2. HACKER TEXT CURSOR */
+      .hacker-text {
+        font-family: "Oswald", sans-serif; /* Ensure font is consistent */
+      }
+    </style>
+  </head>
+  <body
+    class="bg-val-dark text-val-light overflow-x-hidden selection:bg-val-red selection:text-white relative"
+  >
+    <!-- BACKGROUND GRID OVERLAY -->
+    <div
+      class="fixed inset-0 pointer-events-none opacity-10 bg-grid-pattern bg-grid-size z-0"
+    ></div>
+
+    <!-- DYNAMIC STATUS ISLAND (ADDED SHADOW) -->
+    <!-- Added 'drop-shadow-[0_0_15px_rgba(255,70,85,0.4)]' for red glow effect -->
+    <div
+      class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-auto drop-shadow-[0_0_15px_rgba(255,70,85,0.4)]"
+    >
+      <div class="clip-corner-br bg-val-red p-[1px]">
+        <div
+          class="bg-val-darkgray/95 backdrop-blur-md px-6 py-2 clip-corner-br flex items-center gap-3 min-w-[280px] h-full w-full"
+        >
+          <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+          <span
+            class="font-header uppercase tracking-wider text-sm hacker-text"
+            data-value="Status: Open for Contracts"
+            >Status: Open for Contracts</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section
+      class="relative z-10 min-h-screen flex flex-col justify-center items-center px-4 pt-20 pb-10 border-b border-val-gray/20"
+    >
+      <!-- Decorative Lines -->
+      <div
+        class="absolute top-0 left-10 h-full w-[1px] bg-val-gray/10 hidden md:block"
+      ></div>
+      <div
+        class="absolute top-0 right-10 h-full w-[1px] bg-val-gray/10 hidden md:block"
+      ></div>
+
+      <div
+        class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-12 gap-12 items-center"
+      >
+        <!-- Profile Image (WITH GLITCH HOVER) -->
+        <div
+          class="md:col-span-4 flex justify-center md:justify-end relative z-10"
+        >
+          <div
+            class="relative w-72 h-80 bg-val-gray/40 p-[1px] backdrop-blur-sm group hover:bg-val-red transition-colors duration-300 glitch-hover"
+          >
+            <div class="absolute -top-1 -left-1 w-2 h-2 bg-val-red"></div>
+            <div class="absolute -bottom-1 -right-1 w-2 h-2 bg-val-red"></div>
+            <div class="w-full h-full overflow-hidden relative bg-val-dark">
+              <img
+                src="https://i.supaimg.com/3a563ada-a374-49eb-aca6-132ba89bfee3.jpg"
+                alt="Agent Profile"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              />
+              <div
+                class="absolute inset-0 shadow-[inset_0_0_40px_rgba(15,25,35,0.8)] pointer-events-none"
+              ></div>
+            </div>
+            
+            <!-- LABEL KIRI: NAMA -->
+            <div
+              class="absolute bottom-4 -left-4 bg-val-dark border border-val-red px-4 py-1 text-xs font-bold uppercase tracking-widest text-val-red shadow-lg -rotate-90 origin-left z-20"
+            >
+              MARVA ATHATILLAH
+            </div>
+
+             <!-- LABEL KANAN: AGENT_01 -->
+            <div
+              class="absolute bottom-4 -right-4 bg-val-dark border border-val-red px-4 py-1 text-xs font-bold uppercase tracking-widest text-val-red shadow-lg rotate-90 origin-right z-20"
+            >
+              Agent_01
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Content (WITH HACKER TEXT) -->
+        <div class="md:col-span-8 text-center md:text-left space-y-6">
+          <div
+            class="inline-block bg-val-red px-2 py-1 text-xs font-bold uppercase tracking-widest text-white mb-2"
+          >
+            // Class: Engineer
+          </div>
+          <h1
+            class="text-6xl md:text-8xl font-header font-bold uppercase leading-[0.9] tracking-tighter"
+          >
+            Full Stack<br />
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-val-light to-gray-500 hacker-text"
+              data-value="Developer"
+              >Developer</span
+            >
+          </h1>
+          <p
+            class="text-xl md:text-2xl text-val-gray font-light max-w-2xl border-l-4 border-val-red pl-6 ml-4 md:ml-0"
+          >
+            Deploying scalable solutions across Machine Learning, Blockchain,
+            and Cross-Platform Apps.
+          </p>
+          <div class="pt-6">
+            <a
+              href="#mission-brief"
+              class="inline-flex items-center justify-center px-8 py-4 bg-val-red text-white font-header uppercase tracking-widest text-lg hover:bg-white hover:text-val-red transition-colors clip-button group"
+            >
+              <span>Initiate Contact</span>
+              <svg
+                class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENT PROFILE & STATS -->
+    <section class="relative z-10 py-16 border-b border-val-gray/20">
+      <div
+        class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12"
+      >
+        <!-- 1. ABOUT SECTION -->
+        <div class="space-y-6">
+          <div class="flex items-end gap-4 mb-4">
+            <h2
+              class="text-4xl font-header uppercase tracking-tight text-white hacker-text"
+              data-value="Agent Profile"
+            >
+              Agent Profile
+            </h2>
+            <div class="h-1 bg-val-red flex-grow mb-2"></div>
+            <span class="text-val-gray/50 font-mono text-sm mb-1"
+              >BIO_DATA.sys</span
+            >
+          </div>
+          <div class="clip-corner-tl bg-val-gray/30 p-[1px]">
+            <div
+              class="bg-val-darkgray/80 backdrop-blur clip-corner-tl p-8 h-full relative"
+            >
+              <div
+                class="absolute top-0 right-0 w-20 h-20 bg-grid-pattern opacity-20"
+              ></div>
+              <h3 class="text-xl text-val-red font-header uppercase mb-4">
+                /// Operative Background
+              </h3>
+              <p class="text-val-light/80 font-light leading-relaxed mb-6">
+                Specialized in high-impact digital solutions. With a background
+                rooted in complex algorithmic problem solving, I bridge the gap
+                between theoretical Machine Learning models and production-ready
+                Blockchain applications. My mission is to architect resilient
+                systems that scale effortlessly.
+              </p>
+              <div class="grid grid-cols-2 gap-4 font-mono text-sm">
+                <div>
+                  <span class="block text-val-gray uppercase text-xs"
+                    >Origin</span
+                  ><span class="text-white">Yogyakarta, ID</span>
+                </div>
+                <div>
+                  <span class="block text-val-gray uppercase text-xs"
+                    >Years Active</span
+                  ><span class="text-white">4+ Years</span>
+                </div>
+                <div>
+                  <span class="block text-val-gray uppercase text-xs"
+                    >Specialty</span
+                  ><span class="text-white">Full Stack / Mobile</span>
+                </div>
+                <div>
+                  <span class="block text-val-gray uppercase text-xs"
+                    >Codename</span
+                  ><span class="text-white">MARVAPROJECT</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. SKILLS BREAKDOWN (ANIMATED) -->
+        <div class="space-y-6">
+          <div class="flex items-end gap-4 mb-4">
+            <h2
+              class="text-4xl font-header uppercase tracking-tight text-white hacker-text"
+              data-value="Role Stats"
+            >
+              Role Stats
+            </h2>
+            <div class="h-1 bg-val-red flex-grow mb-2"></div>
+            <span class="text-val-gray/50 font-mono text-sm mb-1"
+              >LOADOUT_STATS.exe</span
+            >
+          </div>
+          <div class="grid grid-cols-1 gap-4">
+            <!-- Skill 1 -->
+            <div class="group">
+              <div
+                class="flex justify-between text-xs font-bold uppercase tracking-widest mb-1"
+              >
+                <span>Core Expertise</span>
+                <!-- Added 'stat-value' class, data-target, and initial '0%' -->
+                <span class="text-val-red stat-value" data-target="95">0%</span>
+              </div>
+              <div
+                class="w-full h-3 bg-val-dark border border-val-gray/30 skew-x-[-20deg] p-[1px]"
+              >
+                <div
+                  class="stat-bar h-full bg-val-red w-0 transition-all duration-[1500ms] ease-out group-hover:bg-white"
+                  data-width="95%"
+                ></div>
+              </div>
+            </div>
+            <!-- Skill 2 -->
+            <div class="group">
+              <div
+                class="flex justify-between text-xs font-bold uppercase tracking-widest mb-1"
+              >
+                <span>Programming Languages</span>
+                <span class="text-val-red stat-value" data-target="90">0%</span>
+              </div>
+              <div
+                class="w-full h-3 bg-val-dark border border-val-gray/30 skew-x-[-20deg] p-[1px]"
+              >
+                <div
+                  class="stat-bar h-full bg-val-red w-0 transition-all duration-[1500ms] ease-out group-hover:bg-white"
+                  data-width="90%"
+                ></div>
+              </div>
+            </div>
+            <!-- Skill 3 -->
+            <div class="group">
+              <div
+                class="flex justify-between text-xs font-bold uppercase tracking-widest mb-1"
+              >
+                <span>Frameworks & Libraries</span>
+                <span class="text-val-red stat-value" data-target="85">0%</span>
+              </div>
+              <div
+                class="w-full h-3 bg-val-dark border border-val-gray/30 skew-x-[-20deg] p-[1px]"
+              >
+                <div
+                  class="stat-bar h-full bg-val-red w-0 transition-all duration-[1500ms] ease-out group-hover:bg-white"
+                  data-width="85%"
+                ></div>
+              </div>
+            </div>
+            <!-- Skill 4 -->
+            <div class="group">
+              <div
+                class="flex justify-between text-xs font-bold uppercase tracking-widest mb-1"
+              >
+                <span>Tools & DevOps</span>
+                <span class="text-val-red stat-value" data-target="80">0%</span>
+              </div>
+              <div
+                class="w-full h-3 bg-val-dark border border-val-gray/30 skew-x-[-20deg] p-[1px]"
+              >
+                <div
+                  class="stat-bar h-full bg-val-red w-0 transition-all duration-[1500ms] ease-out group-hover:bg-white"
+                  data-width="80%"
+                ></div>
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span
+                class="px-2 py-1 border border-val-gray/40 text-xs font-mono uppercase bg-val-dark text-val-gray"
+                >Problem Solving</span
+              >
+              <span
+                class="px-2 py-1 border border-val-gray/40 text-xs font-mono uppercase bg-val-dark text-val-gray"
+                >Leadership</span
+              >
+              <span
+                class="px-2 py-1 border border-val-gray/40 text-xs font-mono uppercase bg-val-dark text-val-gray"
+                >Agile</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TECH STACK PANEL -->
+    <section
+      class="relative z-10 py-16 bg-val-darkgray/30 border-b border-val-gray/20"
+    >
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex flex-col items-center mb-12">
+          <span class="text-val-red font-mono text-xs tracking-[0.2em] mb-2"
+            >// WEAPONRY</span
+          >
+          <h2
+            class="text-4xl md:text-5xl font-header uppercase text-white hacker-text"
+            data-value="Technical Arsenal"
+          >
+            Technical Arsenal
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Stack Items (ML, Blockchain, FE, Mobile) -->
+          <div
+            class="clip-corner-both bg-val-gray/20 p-[1px] group hover:bg-val-red transition-colors duration-300"
+          >
+            <div
+              class="bg-val-dark clip-corner-both h-full p-6 flex flex-col items-center text-center"
+            >
+              <div
+                class="w-12 h-12 mb-4 border-2 border-val-gray/50 rotate-45 flex items-center justify-center group-hover:border-val-red group-hover:rotate-0 transition-all duration-300"
+              >
+                <span class="font-bold text-lg -rotate-45 group-hover:rotate-0"
+                  >ML</span
+                >
+              </div>
+              <h4 class="text-white font-header uppercase text-xl mb-3">
+                Machine Learning
+              </h4>
+              <div class="flex flex-wrap justify-center gap-2">
+                <span
+                  class="text-xs text-val-gray font-mono border border-val-gray/30 px-1"
+                  >Python</span
+                >
+                <span
+                  class="text-xs text-val-gray font-mono border border-val-gray/30 px-1"
+                  >TensorFlow</span
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="clip-corner-both bg-val-gray/20 p-[1px] group hover:bg-val-red transition-colors duration-300"
+          >
+            <div
+              class="bg-val-dark clip-corner-both h-full p-6 flex flex-col items-center text-center"
+            >
+              <div
+                class="w-12 h-12 mb-4 border-2 border-val-gray/50 rotate-45 flex items-center justify-center group-hover:border-val-red group-hover:rotate-0 transition-all duration-300"
+              >
+                <span class="font-bold text-lg -rotate-45 group-hover:rotate-0"
+                  >B3</span
+                >
+              </div>
+              <h4 class="text-white font-header uppercase text-xl mb-3">
+                Blockchain
+              </h4>
+              <div class="flex flex-wrap justify-center gap-2">
+                <span
+                  class="text-xs text-val-gray font-mono border border-val-gray/30 px-1"
+                  >Solidity</span
+                >
+                <span
+                  class="text-xs text-val-gray font-mono border border-val-gray/30 px-1"
+                  >Web3.js</span
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="clip-corner-both bg-val-gray/20 p-[1px] group hover:bg-val-red transition-colors duration-300"
+          >
+            <div
+              class="bg-val-dark clip-corner-both h-full p-6 flex flex-col items-center text-center"
+            >
+              <div
+                class="w-12 h-12 mb-4 border-2 border-val-gray/50 rotate-45 flex items-center justify-center group-hover:border-val-red group-hover:rotate-0 transition-all duration-300"
+              >
+                <span class="font-bold text-lg -rotate-45 group-hover:rotate-0"
+                  >FE</span
+                >
+              </div>
+              <h4 class="text-white font-header uppercase text-xl mb-3">
+                Front End
+              </h4>
+              <div class="flex flex-wrap justify-center gap-2">
+                <span
+                  class="text-xs text-val-gray font-mono border border-val-gray/30 px-1"
+                  >React</span
+                >
+                <span
+                  class="text-xs text-val-gray font-mono border border-val-gray/30 px-1"
+                  >Tailwind</span
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="clip-corner-both bg-val-gray/20 p-[1px] group hover:bg-val-red transition-colors duration-300"
+          >
+            <div
+              class="bg-val-dark clip-corner-both h-full p-6 flex flex-col items-center text-center"
+            >
+              <div
+                class="w-12 h-12 mb-4 border-2 border-val-gray/50 rotate-45 flex items-center justify-center group-hover:border-val-red group-hover:rotate-0 transition-all duration-300"
+              >
+                <span class="font-bold text-lg -rotate-45 group-hover:rotate-0"
+                  >MB</span
+                >
+              </div>
+              <h4 class="text-white font-header uppercase text-xl mb-3">
+                Mobile
+              </h4>
+              <div class="flex flex-wrap justify-center gap-2">
+                <span
+                  class="text-xs text-val-gray font-mono border border-val-gray/30 px-1"
+                  >Flutter</span
+                >
+                <span
+                  class="text-xs text-val-gray font-mono border border-val-gray/30 px-1"
+                  >Kotlin</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ACHIEVEMENTS (CERTIFICATION LOG) -->
+    <section class="relative z-10 py-16 border-b border-val-gray/20">
+      <div class="max-w-7xl mx-auto px-4">
+        <div
+          class="flex flex-col md:flex-row items-end justify-between gap-4 mb-8"
+        >
+          <div class="flex items-end gap-4">
+            <h2
+              class="text-4xl font-header uppercase tracking-tight text-white hacker-text"
+              data-value="Certification Log"
+            >
+              Certification Log
+            </h2>
+            <div class="h-1 bg-val-yellow w-20 mb-2"></div>
+            <span class="text-val-yellow font-mono text-sm mb-1"
+              >VERIFIED_DOCS</span
+            >
+          </div>
+
+          <!-- Filter Controls -->
+          <div class="flex flex-wrap gap-2" id="cert-filters"></div>
+        </div>
+
+        <!-- Certificate Grid Container -->
+        <div
+          id="certificate-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]"
+        ></div>
+
+        <!-- Load More Certs Button (NEW) -->
+        <div
+          id="load-more-certs-container"
+          class="mt-12 flex justify-center hidden"
+        >
+          <button
+            onclick="loadMoreCerts()"
+            class="group relative inline-block p-[1px] bg-val-gray/30 hover:bg-val-red transition-colors duration-300 clip-button focus:outline-none focus:ring-2 focus:ring-val-red/50"
+          >
+            <div
+              class="relative px-8 py-3 bg-gradient-to-r from-val-darkgray to-val-dark clip-button overflow-hidden h-full w-full"
+            >
+              <span
+                class="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-val-red opacity-10 group-hover:rotate-90 ease-out"
+              ></span>
+              <span
+                class="relative flex items-center font-header uppercase tracking-widest text-white group-hover:text-val-red transition-colors"
+              >
+                <svg
+                  class="w-4 h-4 mr-2 animate-bounce"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  ></path>
+                </svg>
+                Load More Intel
+              </span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Empty State for Certs -->
+        <div
+          id="cert-empty-state"
+          class="hidden w-full py-12 text-center border border-dashed border-val-gray/30 bg-val-darkgray/20"
+        >
+          <p class="font-mono text-val-gray">
+            No credentials found for this category.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN PROJECT CATALOG -->
+    <div
+      class="relative z-10 max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-12 gap-8"
+    >
+      <aside class="lg:col-span-3 space-y-8">
+        <div class="sticky top-24 clip-corner-tl p-[1px] bg-val-gray/30">
+          <div
+            class="p-6 bg-val-darkgray/90 backdrop-blur clip-corner-tl h-full w-full"
+          >
+            <h3
+              class="font-header text-2xl uppercase tracking-wider mb-6 flex items-center border-b border-val-gray/30 pb-2"
+            >
+              <span class="text-val-red mr-2">///</span> Filters
+            </h3>
+            <div class="mb-8">
+              <h4
+                class="text-sm uppercase text-val-gray mb-3 font-bold tracking-wide"
+              >
+                Technology
+              </h4>
+              <div class="space-y-2" id="tech-filters"></div>
+            </div>
+            <div class="mb-8">
+              <h4
+                class="text-sm uppercase text-val-gray mb-3 font-bold tracking-wide"
+              >
+                Operation Type
+              </h4>
+              <div class="space-y-2" id="type-filters"></div>
+            </div>
+            <div
+              class="flex justify-between items-center pt-4 border-t border-val-gray/30"
+            >
+              <span id="result-count" class="text-xs font-mono text-val-gray"
+                >Showing all</span
+              >
+              <button
+                onclick="resetFilters()"
+                class="text-xs uppercase text-val-red hover:text-white hover:underline decoration-val-red underline-offset-4 transition-all"
+              >
+                Reset Grid
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="lg:col-span-9">
+        <!-- HEADER -->
+        <div
+          class="mb-8 flex items-end justify-between border-b border-val-gray/20 pb-4"
+        >
+          <h2
+            class="text-4xl font-header uppercase tracking-tight hacker-text"
+            data-value="Mission Log"
+          >
+            Mission Log
+          </h2>
+          <div class="hidden md:block h-2 w-32 bg-val-red"></div>
+        </div>
+
+        <!-- GRID CONTAINER -->
+        <div
+          id="project-grid"
+          class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+        ></div>
+
+        <!-- LOAD MORE BUTTON -->
+        <div id="load-more-container" class="mt-12 flex justify-center hidden">
+          <button
+            onclick="loadMore()"
+            class="group relative inline-block p-[1px] bg-val-gray/30 hover:bg-val-red transition-colors duration-300 clip-button focus:outline-none focus:ring-2 focus:ring-val-red/50"
+          >
+            <div
+              class="relative px-8 py-3 bg-gradient-to-r from-val-darkgray to-val-dark clip-button overflow-hidden h-full w-full"
+            >
+              <span
+                class="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-val-red opacity-10 group-hover:rotate-90 ease-out"
+              ></span>
+              <span
+                class="relative flex items-center font-header uppercase tracking-widest text-white group-hover:text-val-red transition-colors"
+              >
+                <svg
+                  class="w-4 h-4 mr-2 animate-bounce"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  ></path>
+                </svg>
+                Load More Intelligence
+              </span>
+            </div>
+          </button>
+        </div>
+
+        <div
+          id="empty-state"
+          class="hidden w-full py-20 text-center border border-dashed border-val-gray/30 bg-val-darkgray/20"
+        >
+          <h3 class="font-header text-2xl text-val-gray uppercase">
+            No missions found matching criteria
+          </h3>
+          <button
+            onclick="resetFilters()"
+            class="mt-4 text-val-red hover:text-white"
+          >
+            Clear Filters
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <!-- CV & SOCIALS -->
+    <section
+      class="relative z-10 py-12 bg-val-darkgray/50 border-t border-b border-val-gray/20"
+    >
+      <div class="max-w-5xl mx-auto px-4">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-8"
+        >
+          <!-- Download CV -->
+          <div class="w-full md:w-auto">
+            <a href="#" class="group relative block w-full md:w-auto">
+              <div
+                class="absolute inset-0 bg-val-red/50 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              ></div>
+              <div class="clip-button bg-white p-[1px]">
+                <div
+                  class="clip-button bg-val-red px-8 py-4 flex items-center justify-center gap-4 group-hover:bg-white group-hover:text-val-red text-white transition-colors duration-300"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    ></path>
+                  </svg>
+                  <div class="text-left">
+                    <span
+                      class="block font-header uppercase text-xl leading-none"
+                      >Download Resume</span
+                    >
+                    <span class="block font-mono text-[10px] opacity-80"
+                      >PDF VERSION // UPDATED 2025</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Social Loadout -->
+          <div class="flex gap-4 flex-wrap justify-center">
+            <a
+              href="#"
+              class="group relative w-14 h-14 block p-[1px] bg-val-gray/30 hover:bg-val-red transition-colors duration-300 clip-corner-br"
+            >
+              <div
+                class="w-full h-full bg-val-dark clip-corner-br flex items-center justify-center text-val-gray group-hover:text-white transition-colors"
+              >
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <span
+                class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono opacity-0 group-hover:opacity-100 text-val-red uppercase transition-opacity whitespace-nowrap"
+                >Git</span
+              >
+            </a>
+            <a
+              href="#"
+              class="group relative w-14 h-14 block p-[1px] bg-val-gray/30 hover:bg-val-red transition-colors duration-300 clip-corner-br"
+            >
+              <div
+                class="w-full h-full bg-val-dark clip-corner-br flex items-center justify-center text-val-gray group-hover:text-white transition-colors"
+              >
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                  />
+                </svg>
+              </div>
+              <span
+                class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono opacity-0 group-hover:opacity-100 text-val-red uppercase transition-opacity whitespace-nowrap"
+                >Link</span
+              >
+            </a>
+            <a
+              href="#"
+              class="group relative w-14 h-14 block p-[1px] bg-val-gray/30 hover:bg-val-red transition-colors duration-300 clip-corner-br"
+            >
+              <div
+                class="w-full h-full bg-val-dark clip-corner-br flex items-center justify-center text-val-gray group-hover:text-white transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z"
+                  />
+                </svg>
+              </div>
+              <span
+                class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono opacity-0 group-hover:opacity-100 text-val-red uppercase transition-opacity whitespace-nowrap"
+                >X</span
+              >
+            </a>
+            <a
+              href="#"
+              class="group relative w-14 h-14 block p-[1px] bg-val-gray/30 hover:bg-val-red transition-colors duration-300 clip-corner-br"
+            >
+              <div
+                class="w-full h-full bg-val-dark clip-corner-br flex items-center justify-center text-val-gray group-hover:text-white transition-colors"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  ></path>
+                </svg>
+              </div>
+              <span
+                class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono opacity-0 group-hover:opacity-100 text-val-red uppercase transition-opacity whitespace-nowrap"
+                >Mail</span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="mission-brief"
+      class="relative z-10 bg-val-darkgray py-20 border-t border-val-red/50"
+    >
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="p-[1px] bg-val-gray/30 clip-corner-br relative">
+          <div
+            class="bg-val-dark clip-corner-br p-8 md:p-12 relative overflow-hidden h-full w-full"
+          >
+            <div
+              class="absolute top-0 right-0 w-16 h-16 bg-val-red clip-corner-bl"
+            ></div>
+            <div class="absolute top-0 right-0 p-2 text-white font-bold z-10">
+              01
+            </div>
+            <h2
+              class="text-4xl font-header uppercase mb-2 hacker-text"
+              data-value="Mission Briefing"
+            >
+              Mission Briefing
+            </h2>
+            <p class="text-val-gray mb-10 font-mono text-sm">
+              Encrypted channel established. Send your inquiry.
+            </p>
+            <form
+              class="space-y-6"
+              onsubmit="event.preventDefault(); alert('Transmission Sent.');"
+            >
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-1">
+                  <label class="text-xs uppercase font-bold text-val-red"
+                    >Agent Name</label
+                  ><input
+                    type="text"
+                    class="w-full bg-val-dark border border-val-gray/30 p-3 text-white focus:border-val-red focus:outline-none focus:ring-1 focus:ring-val-red transition-colors rounded-none"
+                    placeholder="Enter Identity"
+                  />
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs uppercase font-bold text-val-red"
+                    >Contact Frequency</label
+                  ><input
+                    type="email"
+                    class="w-full bg-val-dark border border-val-gray/30 p-3 text-white focus:border-val-red focus:outline-none focus:ring-1 focus:ring-val-red transition-colors rounded-none"
+                    placeholder="email@domain.com"
+                  />
+                </div>
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs uppercase font-bold text-val-red"
+                  >Objective</label
+                ><textarea
+                  rows="4"
+                  class="w-full bg-val-dark border border-val-gray/30 p-3 text-white focus:border-val-red focus:outline-none focus:ring-1 focus:ring-val-red transition-colors rounded-none"
+                  placeholder="Describe project parameters..."
+                ></textarea>
+              </div>
+              <div
+                class="inline-block p-[1px] bg-white clip-button hover:bg-val-red transition-colors"
+              >
+                <button
+                  type="submit"
+                  class="w-full md:w-auto bg-val-darkgray text-white font-header uppercase px-10 py-3 text-xl hover:bg-val-red hover:text-white transition-colors font-bold clip-button relative z-10 h-full w-full"
+                >
+                  Transmit Data
+                </button>
+              </div>
+            </form>
+            <div
+              class="mt-12 pt-6 border-t border-val-gray/10 flex flex-col md:flex-row justify-between items-center gap-4"
+            >
+              <p class="text-xs text-val-gray/50 font-mono">
+                © 2025 PROTOCOL PORTFOLIO. ALL RIGHTS RESERVED.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECT DETAIL MODAL -->
+    <div
+      id="project-modal"
+      class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden-modal"
+    >
+      <div
+        class="absolute inset-0 bg-val-dark/90 backdrop-blur-sm"
+        onclick="closeModal()"
+      ></div>
+      <div
+        class="relative w-full max-w-4xl p-[1px] bg-val-gray/50 shadow-2xl clip-modal flex flex-col overflow-hidden"
+      >
+        <div class="bg-val-darkgray clip-modal h-full w-full">
+          <div
+            class="bg-val-dark border-b border-val-gray/20 p-4 flex justify-between items-center"
+          >
+            <div class="flex items-center gap-3">
+              <span
+                id="modal-type-badge"
+                class="text-xs font-bold bg-val-red text-white px-2 py-1 uppercase tracking-wider"
+                >WORK</span
+              ><span id="modal-date" class="font-mono text-val-gray text-sm"
+                >Q3 2024</span
+              >
+            </div>
+            <button
+              onclick="closeModal()"
+              class="text-val-gray hover:text-val-red transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="flex flex-col md:flex-row h-full max-h-[80vh] overflow-y-auto"
+          >
+            <div class="w-full md:w-1/2 bg-black relative min-h-[250px]">
+              <img
+                id="modal-image"
+                src=""
+                alt="Project Screenshot"
+                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
+              />
+              <div
+                class="absolute inset-0 pointer-events-none bg-grid-pattern bg-grid-size opacity-20"
+              ></div>
+            </div>
+            <div class="w-full md:w-1/2 p-8 flex flex-col">
+              <h3
+                id="modal-title"
+                class="text-4xl font-header uppercase text-white mb-4 leading-none hacker-text"
+                data-value="Project Title"
+              >
+                Project Title
+              </h3>
+              <div class="space-y-6 flex-grow">
+                <div>
+                  <h4
+                    class="text-xs uppercase text-val-red font-bold mb-2 tracking-widest"
+                  >
+                    /// Description
+                  </h4>
+                  <p
+                    id="modal-desc"
+                    class="text-val-light/80 font-light leading-relaxed"
+                  >
+                    Project description goes here...
+                  </p>
+                </div>
+                <div>
+                  <h4
+                    class="text-xs uppercase text-val-red font-bold mb-2 tracking-widest"
+                  >
+                    /// Tech Stack
+                  </h4>
+                  <div id="modal-tech" class="flex flex-wrap gap-2"></div>
+                </div>
+              </div>
+              <div class="mt-8 pt-6 border-t border-val-gray/20">
+                <a
+                  id="modal-link"
+                  href="#"
+                  target="_blank"
+                  class="flex items-center justify-center w-full py-3 bg-white text-val-dark font-bold uppercase tracking-widest hover:bg-val-red hover:text-white transition-colors clip-button"
+                >
+                  View on GitHub
+                  <svg
+                    class="w-5 h-5 ml-2"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --- DATA (EXTERNAL JSON) ---
+      let projects = [];
+      let certificates = [];
+
+      // URL API GOOGLE SHEETS
+      const API_URL = "https://script.google.com/macros/s/AKfycbxCLN3_jENMomMM46pdoI4_TAVVFhuK4w-EKVpHurgpjV0FQJURnSi85psXQVl5TwM/exec";
+
+      async function loadData() {
+        // Tampilkan loading skeleton sebelum fetch
+        renderLoadingState("project-grid", "project");
+        renderLoadingState("certificate-grid", "certificate");
+
+        try {
+          const response = await fetch(API_URL);
+          const data = await response.json();
+
+          projects = data.project || []; 
+          certificates = data.sertifikat || [];
+
+          initFilters();
+          initCertFilters();
+          renderProjects();
+          renderCertificates();
+          
+          console.log("Data loaded successfully from Google Sheet!", projects, certificates);
+        } catch (e) {
+          console.error("Gagal memuat data dari API:", e);
+        }
+      }
+
+      // --- STATE ---
+      let activeTechFilters = new Set();
+      let activeTypeFilters = new Set();
+      let activeCertCategory = "All";
+
+      // PAGINATION STATE
+      let itemsToShow = 6;
+      const itemsPerLoad = 3;
+
+      let certsToShow = 9; 
+      const certsPerLoad = 3; 
+
+      // --- INIT ---
+      document.addEventListener("DOMContentLoaded", () => {
+        loadData();
+        initHackerText();
+        initStatBars();
+        initStatNumbers();
+      });
+
+      // --- HELPER FUNCTIONS ---
+
+      // Fungsi Baru: Menampilkan Skeleton Loading
+      function renderLoadingState(containerId, type) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        let skeletons = "";
+        const count = 3; // Menampilkan 3 placeholder loading
+
+        for (let i = 0; i < count; i++) {
+            if (type === "project") {
+                skeletons += `
+                    <div class="animate-pulse relative h-[400px]">
+                        <div class="clip-corner-br bg-val-gray/10 p-[1px] h-full">
+                            <div class="bg-val-darkgray h-full clip-corner-br p-6 flex flex-col gap-4">
+                                <div class="h-4 bg-val-gray/20 w-1/3 mb-2"></div>
+                                <div class="h-8 bg-val-gray/20 w-3/4 mb-4"></div>
+                                <div class="h-24 bg-val-gray/20 w-full mb-4"></div>
+                                <div class="mt-auto flex gap-2">
+                                    <div class="h-6 w-16 bg-val-gray/20"></div>
+                                    <div class="h-6 w-16 bg-val-gray/20"></div>
+                                </div>
+                                <div class="h-10 w-full bg-val-gray/20 mt-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (type === "certificate") {
+                 skeletons += `
+                    <div class="animate-pulse relative h-[250px]">
+                        <div class="clip-corner-br bg-val-gray/10 p-[1px] h-full">
+                            <div class="bg-val-darkgray h-full clip-corner-br p-6 flex flex-col gap-4">
+                                <div class="flex justify-between">
+                                    <div class="h-10 w-10 bg-val-gray/20"></div>
+                                    <div class="h-4 w-20 bg-val-gray/20"></div>
+                                </div>
+                                <div class="h-6 bg-val-gray/20 w-3/4 my-2"></div>
+                                <div class="space-y-2">
+                                    <div class="h-3 bg-val-gray/20 w-full"></div>
+                                    <div class="h-3 bg-val-gray/20 w-2/3"></div>
+                                </div>
+                                <div class="mt-auto h-8 w-full bg-val-gray/20"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        container.innerHTML = skeletons;
+      }
+
+      function openModal(projectIndex) {
+        // Menggunakan index array, bukan ID
+        const project = projects[projectIndex];
+        if (!project) return;
+
+        const titleEl = document.getElementById("modal-title");
+        titleEl.innerText = project.title;
+        titleEl.dataset.value = project.title;
+
+        document.getElementById("modal-desc").innerText = project.desc;
+        document.getElementById("modal-date").innerText = project.date;
+        document.getElementById("modal-type-badge").innerText = project.type;
+        document.getElementById("modal-image").src = project.screenshot;
+        const githubBtn = document.getElementById("modal-link");
+        githubBtn.href = project.github;
+        
+        // Render tech stack badges
+        const techContainer = document.getElementById("modal-tech");
+        if(Array.isArray(project.tech)) {
+            techContainer.innerHTML = project.tech
+            .map(
+                (t) =>
+                `<span class="text-xs font-mono border border-val-gray/50 text-val-light px-2 py-1 bg-val-dark">${t}</span>`
+            )
+            .join("");
+        } else {
+            techContainer.innerHTML = "";
+        }
+
+        const modal = document.getElementById("project-modal");
+        modal.classList.remove("hidden-modal");
+        document.body.style.overflow = "hidden";
+
+        startTextDecode(titleEl);
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("project-modal");
+        modal.classList.add("hidden-modal");
+        document.body.style.overflow = "auto";
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+
+      function initFilters() {
+        const allTech = [...new Set(projects.flatMap((p) => p.tech))];
+        const allTypes = [...new Set(projects.map((p) => p.type))];
+        const techContainer = document.getElementById("tech-filters");
+        
+        techContainer.innerHTML = ""; // Reset
+        allTech.forEach((tech) => {
+          techContainer.innerHTML += createCheckboxHTML(tech, tech, "tech");
+        });
+        
+        const typeContainer = document.getElementById("type-filters");
+        typeContainer.innerHTML = ""; // Reset
+        allTypes.forEach((type) => {
+          if(type) {
+            typeContainer.innerHTML += createCheckboxHTML(
+                type,
+                type.charAt(0).toUpperCase() + type.slice(1),
+                "type"
+            );
+          }
+        });
+      }
+
+      function createCheckboxHTML(value, label, group) {
+        return `<label class="flex items-center cursor-pointer group hover:opacity-100 opacity-80 transition-opacity"><input type="checkbox" value="${value}" class="chk-box peer sr-only" onchange="toggleFilter('${group}', '${value}')"><div class="w-4 h-4 border border-val-gray/50 mr-3 bg-transparent peer-focus:ring-1 peer-focus:ring-val-red transition-colors"></div><span class="text-sm font-mono uppercase text-val-light group-hover:text-white">${label}</span></label>`;
+      }
+
+      function toggleFilter(group, value) {
+        const set = group === "tech" ? activeTechFilters : activeTypeFilters;
+        if (set.has(value)) {
+          set.delete(value);
+        } else {
+          set.add(value);
+        }
+        itemsToShow = 6;
+        renderProjects();
+      }
+
+      function resetFilters() {
+        activeTechFilters.clear();
+        activeTypeFilters.clear();
+        itemsToShow = 6;
+        document
+          .querySelectorAll('input[type="checkbox"]')
+          .forEach((cb) => (cb.checked = false));
+        renderProjects();
+      }
+
+      function loadMore() {
+        itemsToShow += itemsPerLoad;
+        renderProjects();
+      }
+
+      function loadMoreCerts() {
+        certsToShow += certsPerLoad;
+        renderCertificates();
+      }
+
+      function renderProjects() {
+        const grid = document.getElementById("project-grid");
+        const emptyState = document.getElementById("empty-state");
+        const countLabel = document.getElementById("result-count");
+        const loadMoreBtn = document.getElementById("load-more-container");
+
+        const filtered = projects.filter((p) => {
+          const matchTech =
+            activeTechFilters.size === 0 ||
+            p.tech.some((t) => activeTechFilters.has(t));
+          const matchType =
+            activeTypeFilters.size === 0 || activeTypeFilters.has(p.type);
+          return matchTech && matchType;
+        });
+
+        const visibleProjects = filtered.slice(0, itemsToShow);
+        countLabel.innerText = `// SHOWING ${visibleProjects.length} OF ${filtered.length} MISSIONS`;
+
+        if (filtered.length > itemsToShow) {
+          loadMoreBtn.classList.remove("hidden");
+        } else {
+          loadMoreBtn.classList.add("hidden");
+        }
+
+        grid.innerHTML = "";
+        if (filtered.length === 0) {
+          emptyState.classList.remove("hidden");
+          loadMoreBtn.classList.add("hidden");
+        } else {
+          emptyState.classList.add("hidden");
+          visibleProjects.forEach((p) => {
+            // PERBAIKAN PENTING:
+            // Kita mencari index asli project di dalam array utama 'projects'
+            // Ini menggantikan penggunaan p.id yang sudah dihapus
+            const globalIndex = projects.indexOf(p);
+            
+            // Animasi delay
+            // Menggunakan globalIndex % 3 agar animasinya rapi per baris
+            const delay = (globalIndex % 3) * 50; 
+
+            let techBadges = "";
+            if(Array.isArray(p.tech)){
+                techBadges = p.tech
+                .map(
+                    (t) =>
+                    `<span class="text-[10px] uppercase font-bold px-1.5 py-0.5 border border-val-gray/30 text-val-gray bg-val-dark/50">${t}</span>`
+                )
+                .join("");
+            }
+
+            const card = `
+                        <article class="animate-card relative group cursor-pointer" style="animation-delay: ${delay}ms">
+                            <div class="clip-corner-br bg-val-gray/30 p-[1px] h-full transition-colors duration-300 group-hover:bg-val-red">
+                                <div class="bg-val-darkgray h-full clip-corner-br relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-1 h-full bg-val-gray/20 group-hover:bg-val-red transition-colors z-10"></div>
+                                    <div class="p-6 pl-8 h-full flex flex-col relative z-20">
+                                        <div class="flex justify-between items-start mb-4"><span class="font-mono text-xs text-val-red font-bold uppercase tracking-widest">[ ${p.type} ]</span><span class="font-mono text-xs text-val-gray/50">${p.date}</span></div>
+                                        <h3 class="text-2xl font-header uppercase leading-none mb-2 text-white group-hover:text-val-red transition-colors">${p.title}</h3>
+                                        <p class="text-sm text-val-gray mb-6 line-clamp-2 flex-grow font-light">${p.desc}</p>
+                                        <div class="mt-auto"><div class="flex flex-wrap gap-2 mb-4">${techBadges}</div><button onclick="openModal(${globalIndex})" class="inline-block w-full text-center py-2 border border-val-gray/30 hover:bg-white hover:text-val-dark uppercase text-xs font-bold tracking-widest transition-all cursor-pointer">View Schematics</button></div>
+                                    </div>
+                                    <div class="absolute bottom-0 right-0 w-4 h-4 border-l border-t border-val-gray/20"></div>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+            grid.innerHTML += card;
+          });
+        }
+      }
+
+      function initCertFilters() {
+        const categories = [
+          "All",
+          ...new Set(certificates.map((c) => c.category)),
+        ];
+        const filterContainer = document.getElementById("cert-filters");
+        filterContainer.innerHTML = "";
+
+        categories.forEach((cat) => {
+          if(!cat) return; // Skip if category is empty
+          
+          const isActive = cat === activeCertCategory;
+          const wrapperClass = isActive
+            ? "bg-val-yellow"
+            : "bg-val-gray/30 hover:bg-val-yellow";
+          const innerClass = isActive
+            ? "bg-val-yellow text-val-dark"
+            : "bg-val-dark text-val-gray group-hover:text-white";
+
+          const btnWrapper = document.createElement("button");
+          btnWrapper.className = `group relative inline-block p-[1px] clip-button mr-2 mb-2 focus:outline-none transition-colors duration-300 ${wrapperClass}`;
+          const btnInner = document.createElement("div");
+          btnInner.className = `px-4 py-1 text-xs font-bold uppercase clip-button h-full w-full transition-colors duration-300 ${innerClass}`;
+          btnInner.innerText = cat;
+
+          btnWrapper.appendChild(btnInner);
+          btnWrapper.onclick = () => {
+            activeCertCategory = cat;
+            certsToShow = 9; 
+            initCertFilters();
+            renderCertificates();
+          };
+          filterContainer.appendChild(btnWrapper);
+        });
+      }
+
+      function renderCertificates() {
+        const container = document.getElementById("certificate-grid");
+        const emptyState = document.getElementById("cert-empty-state");
+        const loadMoreBtn = document.getElementById(
+          "load-more-certs-container"
+        );
+        container.innerHTML = "";
+
+        const filteredCerts =
+          activeCertCategory === "All"
+            ? certificates
+            : certificates.filter((c) => c.category === activeCertCategory);
+
+        const visibleCerts = filteredCerts.slice(0, certsToShow);
+
+        if (filteredCerts.length > certsToShow) {
+          loadMoreBtn.classList.remove("hidden");
+        } else {
+          loadMoreBtn.classList.add("hidden");
+        }
+
+        if (filteredCerts.length === 0) {
+          emptyState.classList.remove("hidden");
+          container.classList.add("hidden");
+          loadMoreBtn.classList.add("hidden");
+        } else {
+          emptyState.classList.add("hidden");
+          container.classList.remove("hidden");
+
+          visibleCerts.forEach((cert, index) => {
+            const delay = (index % certsPerLoad) * 50; 
+            const certCard = `
+                        <div class="relative group animate-card" style="animation-delay: ${delay}ms">
+                            <div class="clip-corner-br bg-val-gray/30 p-[1px] h-full hover:bg-val-yellow transition-colors duration-300">
+                                <div class="bg-val-darkgray clip-corner-br p-6 relative overflow-hidden h-full flex flex-col">
+                                    <div class="absolute inset-0 bg-val-yellow/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                                    <div class="flex justify-between items-start mb-4 relative z-10">
+                                        <div class="w-10 h-10 bg-val-dark border border-val-yellow flex items-center justify-center shadow-lg">
+                                            <span class="text-val-yellow font-bold text-sm uppercase">${cert.badge}</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="block font-mono text-[10px] text-val-gray/70 uppercase tracking-wider mb-1">${cert.category}</span>
+                                            <span class="font-mono text-xs text-val-gray border border-val-gray/30 px-2 py-1">${cert.year}</span>
+                                        </div>
+                                    </div>
+                                    <h4 class="text-white font-header font-bold uppercase text-xl mb-4 leading-tight relative z-10 group-hover:text-val-yellow transition-colors">${cert.title}</h4>
+                                    
+                                    <div class="space-y-3 mb-6 relative z-10 flex-grow">
+                                        <div>
+                                            <p class="text-[10px] uppercase text-val-gray font-bold tracking-wider mb-1">Lembaga</p>
+                                            <p class="text-sm text-val-light font-mono border-l-2 border-val-yellow/50 pl-2">${cert.institution}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[10px] uppercase text-val-gray font-bold tracking-wider mb-1">Teknologi</p>
+                                            <p class="text-sm text-val-light font-mono border-l-2 border-val-red/50 pl-2">${cert.tech}</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-auto relative z-10">
+                                        <a href="${cert.downloadLink}" target="_blank" class="flex items-center justify-center w-full py-2 bg-val-dark border border-val-gray/30 hover:bg-val-yellow hover:text-val-dark transition-all uppercase text-xs font-bold tracking-widest group/btn">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"></path></svg>
+                                            INSPECT INTEL
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+            container.innerHTML += certCard;
+          });
+        }
+      }
+
+      // --- TEXT DECODING EFFECT LOGIC ---
+      const letters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;':,./<>?";
+
+      function initHackerText() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                startTextDecode(entry.target);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        document.querySelectorAll(".hacker-text").forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      function startTextDecode(element) {
+        let iteration = 0;
+        const originalText = element.dataset.value;
+
+        if (!originalText) return;
+
+        clearInterval(element.interval);
+
+        element.interval = setInterval(() => {
+          element.innerText = originalText
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration) {
+                return originalText[index];
+              }
+
+              return letters[Math.floor(Math.random() * 26)];
+            })
+            .join("");
+
+          if (iteration >= originalText.length) {
+            clearInterval(element.interval);
+          }
+
+          iteration += 1 / 3;
+        }, 30);
+      }
+
+      // --- STAT BARS ANIMATION ---
+      function initStatBars() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const bar = entry.target;
+                const width = bar.getAttribute("data-width");
+                if (width) {
+                  bar.style.width = width;
+                }
+                observer.unobserve(bar);
+              }
+            });
+          },
+          { threshold: 0.2 }
+        );
+
+        document.querySelectorAll(".stat-bar").forEach((bar) => {
+          observer.observe(bar);
+        });
+      }
+
+      // --- STAT NUMBERS COUNTER ANIMATION ---
+      function initStatNumbers() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute("data-target"));
+                animateCountUp(el, target);
+                observer.unobserve(el);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        document.querySelectorAll(".stat-value").forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      function animateCountUp(el, target) {
+        let start = 0;
+        const duration = 1500;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          const ease = 1 - Math.pow(1 - progress, 4);
+          const current = Math.floor(ease * target);
+          el.innerText = current + "%";
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.innerText = target + "%";
+          }
+        }
+
+        requestAnimationFrame(update);
+      }
+    </script>
+  </body>
+</html>
