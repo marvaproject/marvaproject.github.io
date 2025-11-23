@@ -237,7 +237,7 @@
                 class="absolute inset-0 shadow-[inset_0_0_40px_rgba(15,25,35,0.8)] pointer-events-none"
               ></div>
             </div>
-            
+
             <!-- LABEL KIRI: NAMA -->
             <div
               class="absolute bottom-4 -left-4 bg-val-dark border border-val-red px-4 py-1 text-xs font-bold uppercase tracking-widest text-val-red shadow-lg -rotate-90 origin-left z-20"
@@ -245,7 +245,7 @@
               MARVA ATHATILLAH
             </div>
 
-             <!-- LABEL KANAN: AGENT_01 -->
+            <!-- LABEL KANAN: AGENT_01 -->
             <div
               class="absolute bottom-4 -right-4 bg-val-dark border border-val-red px-4 py-1 text-xs font-bold uppercase tracking-widest text-val-red shadow-lg rotate-90 origin-right z-20"
             >
@@ -956,16 +956,18 @@
             <p class="text-val-gray mb-10 font-mono text-sm">
               Encrypted channel established. Send your inquiry.
             </p>
-            <form
-              class="space-y-6"
-              onsubmit="event.preventDefault(); alert('Transmission Sent.');"
-            >
+            <!-- FORM YANG SUDAH DIBERSIHKAN -->
+            <form id="contact-form" class="space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-1">
                   <label class="text-xs uppercase font-bold text-val-red"
                     >Agent Name</label
-                  ><input
+                  >
+                  <input
+                    id="contact-name"
+                    name="nama"
                     type="text"
+                    required
                     class="w-full bg-val-dark border border-val-gray/30 p-3 text-white focus:border-val-red focus:outline-none focus:ring-1 focus:ring-val-red transition-colors rounded-none"
                     placeholder="Enter Identity"
                   />
@@ -973,8 +975,12 @@
                 <div class="space-y-1">
                   <label class="text-xs uppercase font-bold text-val-red"
                     >Contact Frequency</label
-                  ><input
+                  >
+                  <input
+                    id="contact-email"
+                    name="email"
                     type="email"
+                    required
                     class="w-full bg-val-dark border border-val-gray/30 p-3 text-white focus:border-val-red focus:outline-none focus:ring-1 focus:ring-val-red transition-colors rounded-none"
                     placeholder="email@domain.com"
                   />
@@ -983,8 +989,12 @@
               <div class="space-y-1">
                 <label class="text-xs uppercase font-bold text-val-red"
                   >Objective</label
-                ><textarea
+                >
+                <textarea
+                  id="contact-message"
+                  name="pesan"
                   rows="4"
+                  required
                   class="w-full bg-val-dark border border-val-gray/30 p-3 text-white focus:border-val-red focus:outline-none focus:ring-1 focus:ring-val-red transition-colors rounded-none"
                   placeholder="Describe project parameters..."
                 ></textarea>
@@ -1136,7 +1146,8 @@
       let certificates = [];
 
       // URL API GOOGLE SHEETS
-      const API_URL = "https://script.google.com/macros/s/AKfycbxCLN3_jENMomMM46pdoI4_TAVVFhuK4w-EKVpHurgpjV0FQJURnSi85psXQVl5TwM/exec";
+      const API_URL =
+        "https://script.google.com/macros/s/AKfycbxCLN3_jENMomMM46pdoI4_TAVVFhuK4w-EKVpHurgpjV0FQJURnSi85psXQVl5TwM/exec";
 
       async function loadData() {
         // Tampilkan loading skeleton sebelum fetch
@@ -1147,15 +1158,19 @@
           const response = await fetch(API_URL);
           const data = await response.json();
 
-          projects = data.project || []; 
+          projects = data.project || [];
           certificates = data.sertifikat || [];
 
           initFilters();
           initCertFilters();
           renderProjects();
           renderCertificates();
-          
-          console.log("Data loaded successfully from Google Sheet!", projects, certificates);
+
+          console.log(
+            "Data loaded successfully from Google Sheet!",
+            projects,
+            certificates
+          );
         } catch (e) {
           console.error("Gagal memuat data dari API:", e);
         }
@@ -1170,8 +1185,8 @@
       let itemsToShow = 6;
       const itemsPerLoad = 3;
 
-      let certsToShow = 9; 
-      const certsPerLoad = 3; 
+      let certsToShow = 9;
+      const certsPerLoad = 3;
 
       // --- INIT ---
       document.addEventListener("DOMContentLoaded", () => {
@@ -1179,6 +1194,7 @@
         initHackerText();
         initStatBars();
         initStatNumbers();
+        initContactForm();
       });
 
       // --- HELPER FUNCTIONS ---
@@ -1192,8 +1208,8 @@
         const count = 3; // Menampilkan 3 placeholder loading
 
         for (let i = 0; i < count; i++) {
-            if (type === "project") {
-                skeletons += `
+          if (type === "project") {
+            skeletons += `
                     <div class="animate-pulse relative h-[400px]">
                         <div class="clip-corner-br bg-val-gray/10 p-[1px] h-full">
                             <div class="bg-val-darkgray h-full clip-corner-br p-6 flex flex-col gap-4">
@@ -1209,8 +1225,8 @@
                         </div>
                     </div>
                 `;
-            } else if (type === "certificate") {
-                 skeletons += `
+          } else if (type === "certificate") {
+            skeletons += `
                     <div class="animate-pulse relative h-[250px]">
                         <div class="clip-corner-br bg-val-gray/10 p-[1px] h-full">
                             <div class="bg-val-darkgray h-full clip-corner-br p-6 flex flex-col gap-4">
@@ -1228,7 +1244,7 @@
                         </div>
                     </div>
                 `;
-            }
+          }
         }
         container.innerHTML = skeletons;
       }
@@ -1248,18 +1264,18 @@
         document.getElementById("modal-image").src = project.screenshot;
         const githubBtn = document.getElementById("modal-link");
         githubBtn.href = project.github;
-        
+
         // Render tech stack badges
         const techContainer = document.getElementById("modal-tech");
-        if(Array.isArray(project.tech)) {
-            techContainer.innerHTML = project.tech
+        if (Array.isArray(project.tech)) {
+          techContainer.innerHTML = project.tech
             .map(
-                (t) =>
+              (t) =>
                 `<span class="text-xs font-mono border border-val-gray/50 text-val-light px-2 py-1 bg-val-dark">${t}</span>`
             )
             .join("");
         } else {
-            techContainer.innerHTML = "";
+          techContainer.innerHTML = "";
         }
 
         const modal = document.getElementById("project-modal");
@@ -1283,20 +1299,20 @@
         const allTech = [...new Set(projects.flatMap((p) => p.tech))];
         const allTypes = [...new Set(projects.map((p) => p.type))];
         const techContainer = document.getElementById("tech-filters");
-        
+
         techContainer.innerHTML = ""; // Reset
         allTech.forEach((tech) => {
           techContainer.innerHTML += createCheckboxHTML(tech, tech, "tech");
         });
-        
+
         const typeContainer = document.getElementById("type-filters");
         typeContainer.innerHTML = ""; // Reset
         allTypes.forEach((type) => {
-          if(type) {
+          if (type) {
             typeContainer.innerHTML += createCheckboxHTML(
-                type,
-                type.charAt(0).toUpperCase() + type.slice(1),
-                "type"
+              type,
+              type.charAt(0).toUpperCase() + type.slice(1),
+              "type"
             );
           }
         });
@@ -1372,16 +1388,16 @@
             // Kita mencari index asli project di dalam array utama 'projects'
             // Ini menggantikan penggunaan p.id yang sudah dihapus
             const globalIndex = projects.indexOf(p);
-            
+
             // Animasi delay
             // Menggunakan globalIndex % 3 agar animasinya rapi per baris
-            const delay = (globalIndex % 3) * 50; 
+            const delay = (globalIndex % 3) * 50;
 
             let techBadges = "";
-            if(Array.isArray(p.tech)){
-                techBadges = p.tech
+            if (Array.isArray(p.tech)) {
+              techBadges = p.tech
                 .map(
-                    (t) =>
+                  (t) =>
                     `<span class="text-[10px] uppercase font-bold px-1.5 py-0.5 border border-val-gray/30 text-val-gray bg-val-dark/50">${t}</span>`
                 )
                 .join("");
@@ -1417,8 +1433,8 @@
         filterContainer.innerHTML = "";
 
         categories.forEach((cat) => {
-          if(!cat) return; // Skip if category is empty
-          
+          if (!cat) return; // Skip if category is empty
+
           const isActive = cat === activeCertCategory;
           const wrapperClass = isActive
             ? "bg-val-yellow"
@@ -1436,7 +1452,7 @@
           btnWrapper.appendChild(btnInner);
           btnWrapper.onclick = () => {
             activeCertCategory = cat;
-            certsToShow = 9; 
+            certsToShow = 9;
             initCertFilters();
             renderCertificates();
           };
@@ -1474,7 +1490,7 @@
           container.classList.remove("hidden");
 
           visibleCerts.forEach((cert, index) => {
-            const delay = (index % certsPerLoad) * 50; 
+            const delay = (index % certsPerLoad) * 50;
             const certCard = `
                         <div class="relative group animate-card" style="animation-delay: ${delay}ms">
                             <div class="clip-corner-br bg-val-gray/30 p-[1px] h-full hover:bg-val-yellow transition-colors duration-300">
@@ -1630,6 +1646,63 @@
         }
 
         requestAnimationFrame(update);
+      }
+
+      // --- FORM SUBMISSION LOGIC ---
+      function initContactForm() {
+        const form = document.getElementById("contact-form");
+        if (!form) return;
+
+        const newForm = form.cloneNode(true);
+        form.parentNode.replaceChild(newForm, form);
+
+        const submitBtn = newForm.querySelector("button[type='submit']");
+
+        newForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const namaInput = document.getElementById("contact-name");
+          const emailInput = document.getElementById("contact-email");
+          const pesanInput = document.getElementById("contact-message");
+
+          if (!namaInput || !emailInput || !pesanInput) {
+            alert("SYSTEM ERROR: Input ID mismatch.");
+            return;
+          }
+
+          const originalText = submitBtn.innerText;
+          submitBtn.innerText = "TRANSMITTING...";
+          submitBtn.disabled = true;
+          submitBtn.classList.add("opacity-50", "cursor-not-allowed");
+
+          const data = new URLSearchParams();
+          data.append("nama", namaInput.value);
+          data.append("email", emailInput.value);
+          data.append("pesan", pesanInput.value);
+
+          // PERUBAHAN UTAMA DI SINI:
+          fetch(API_URL, {
+            method: "POST",
+            body: data,
+            mode: "no-cors", // <--- INI SOLUSINYA! (Mematikan error CORS)
+          })
+            .then(() => {
+              // Dengan mode 'no-cors', browser tidak akan memberitahu respon detailnya
+              // Tapi jika kode masuk ke sini (then), artinya pengiriman BERHASIL sampai ke Google.
+              newForm.reset();
+              alert("MISSION ACCOMPLISHED: Transmission sent successfully.");
+              console.log("Sent via no-cors mode");
+            })
+            .catch((error) => {
+              console.error("Fetch Error:", error);
+              alert("TRANSMISSION FAILED: Signal lost.");
+            })
+            .finally(() => {
+              submitBtn.innerText = originalText;
+              submitBtn.disabled = false;
+              submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
+            });
+        });
       }
     </script>
   </body>
