@@ -1659,12 +1659,11 @@
         requestAnimationFrame(update);
       }
 
-      // --- FORM SUBMISSION (METODE EMAILJS) ---
+      // --- FORM SUBMISSION (FIXED USER_ID ERROR) ---
       function initContactForm() {
         const form = document.getElementById("contact-form");
         if (!form) return;
 
-        // Hapus listener lama
         const newForm = form.cloneNode(true);
         form.parentNode.replaceChild(newForm, form);
         const submitBtn = newForm.querySelector("button[type='submit']");
@@ -1672,7 +1671,6 @@
         newForm.addEventListener("submit", (e) => {
           e.preventDefault();
 
-          // Ambil Value
           const nama = document.getElementById("contact-name").value;
           const email = document.getElementById("contact-email").value;
           const pesan = document.getElementById("contact-message").value;
@@ -1683,27 +1681,30 @@
           submitBtn.disabled = true;
           submitBtn.classList.add("opacity-50", "cursor-not-allowed");
 
-          // Parameter untuk dikirim ke Template EmailJS
-          // Pastikan nama key (from_name, dll) sama dengan yang ada di template EmailJS Anda
           const templateParams = {
             from_name: nama,
-            reply_to: email, // Email pengunjung
+            reply_to: email,
             message: pesan,
           };
 
+          // PERBAIKAN UTAMA DI SINI:
+          // Tambahkan Public Key Anda sebagai parameter ke-4
           emailjs
-            .send("service_4n84m45", "template_ngqme0d", templateParams)
-            .then(
-              function (response) {
-                newForm.reset();
-                alert("MISSION ACCOMPLISHED: Transmission sent successfully.");
-                console.log("SUCCESS!", response.status, response.text);
-              },
-              function (error) {
-                alert("TRANSMISSION FAILED: Signal lost.");
-                console.error("FAILED...", error);
-              }
+            .send(
+              "service_4n84m45",
+              "template_ngqme0d",
+              templateParams,
+              "wpezxrMymj5iu_mc-"
             )
+            .then(function (response) {
+              newForm.reset();
+              alert("MISSION ACCOMPLISHED: Transmission sent successfully.");
+              console.log("SUCCESS!", response.status, response.text);
+            })
+            .catch(function (error) {
+              alert("TRANSMISSION FAILED: " + JSON.stringify(error));
+              console.error("FAILED...", error);
+            })
             .finally(() => {
               submitBtn.innerText = originalText;
               submitBtn.disabled = false;
