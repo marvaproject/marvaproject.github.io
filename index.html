@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marva Athatillah | Software Engineer & Creative Developer</title>
+    <meta name="description" content="Portfolio of Marva Athatillah, a Software Engineer specializing in Machine Learning, Blockchain, and Full-Stack Development. Explore projects crafted with logic and a touch of creativity.">
+    <meta name="keywords" content="Marva Athatillah, Software Engineer, Machine Learning, Blockchain, Full Stack Developer, Doodle Portfolio, Creative Developer">
+    
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="Marva Athatillah | Software Engineer & Creative Developer">
+    <meta property="og:description" content="Crafting digital solutions with code and creativity. Explore my project sketchbook.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marvaproject.github.io">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Gaegu:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("wpezxrMymj5iu_mc-");
+      })();
+    </script>
+</head>
+<body class="paper">
+
+    <nav id="sketch-nav">
+        <div class="container nav-content">
+            <a href="#" class="sketch-logo">Me.draw()</a>
+            
+            <!-- Mobile Toggle -->
+            <button id="menu-toggle" class="menu-toggle" aria-label="Open Menu">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 8h16M4 16h16" class="sketch-line-path" />
+                </svg>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about" class="scribble-hover">Story</a></li>
+                <li><a href="#projects" class="scribble-hover">Stuff I Made</a></li>
+                <li><a href="#contact" class="scribble-hover">Say Hi!</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Section -->
+        <section id="hero" class="hero-section">
+            <div class="container content-center">
+                <div class="hero-illustration reveal">
+                    <!-- Real Profile Image with Sketch Filter -->
+                    <img src="https://i.supaimg.com/3a563ada-a374-49eb-aca6-132ba89bfee3.jpg" alt="Marva Athatillah" class="profile-photo-sketch">
+                    <svg class="sketch-circle" viewBox="0 0 100 100">
+                        <path d="M50,5 A45,45 0 1,1 49.9,5 Z" fill="none" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </div>
+                <h1 class="sketch-title reveal">Hi, I'm <span class="highlight">Marva</span></h1>
+                <p class="sketch-desc reveal">Software Engineer specialized in <span class="highlight">Machine Learning</span>, <span class="highlight">Blockchain</span>, and Cross-Platform Apps.</p>
+                <div class="hero-actions">
+                    <a href="#projects" class="sketch-btn reveal">View My Stuff</a>
+                    <a href="#scribble" class="sketch-btn reveal">Draw with Me</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="sketch-header">My Tiny Story</h2>
+                <div class="comic-timeline">
+                    <div class="comic-panel glass-sketch reveal">
+                        <h3>The Story Begins</h3>
+                        <p>I've always loved bridging the gap between complex Machine Learning models and real-world Blockchain applications. I don't just build systems; I craft them, one "doodle" of logic at a time.</p>
+                    </div>
+                    <div class="comic-panel glass-sketch reveal">
+                        <h3>2022</h3>
+                        <p>Found out what "Production" means. Scary! 🚀</p>
+                    </div>
+                    <div class="comic-panel glass-sketch reveal">
+                        <h3>Today</h3>
+                        <p>Building cool things with doodles. ✨</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <h2 class="sketch-header">My Scrapbook 🛸</h2>
+                <div id="sticky-grid" class="sticky-grid">
+                    <!-- Projects will be scribbled here by JS -->
+                    <div class="loading-state">Sketching my projects... ✏️</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certification Log -->
+        <section id="certificates" class="about-section">
+            <div class="container">
+                <h2 class="sketch-header">My Achievements 🎓</h2>
+                <div id="cert-gallery" class="cert-grid">
+                    <div class="loading-state">Syncing certificates...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section reveal">
+            <div class="container content-center">
+                <div class="envelope glass-sketch">
+                    <h2 class="sketch-header">Say Hello! ✉️</h2>
+                    <p>Want to collaborate on a project or just talk about code? Drop a note below!</p>
+                    
+                    <form id="contact-form" class="sketch-form" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; width: 100%;">
+                        <input type="text" name="user_name" placeholder="Your Name" class="sketch-input" required>
+                        <input type="email" name="user_email" placeholder="Your Frequency (Email)" class="sketch-input" required>
+                        <textarea name="message" placeholder="What should we build?" class="sketch-input" rows="4" required></textarea>
+                        <button type="submit" class="sketch-btn">Send Note!</button>
+                    </form>
+                    
+                    <div class="mailbox">
+                        <span id="copy-email-doodle" data-email="ahnafmarva@gmail.com" class="scribble-hover">ahnafmarva@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Scribble Zone -->
+        <section id="scribble" class="scribble-section reveal">
+            <div class="container">
+                <h2 class="sketch-header">Leave a Scribble! ✏️</h2>
+                <div class="canvas-wrapper glass-sketch">
+                    <canvas id="scribble-canvas"></canvas>
+                    <div class="canvas-controls">
+                        <button id="clear-canvas" class="sketch-btn-sm scrib-btn">Erase Everything</button>
+                        <button id="save-canvas" class="sketch-btn-sm scrib-btn">Save my Art</button>
+                    </div>
+                </div>
+                <p class="sketch-hint">Draw anything! Your doodles stay here until you refresh.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Detail Overlay -->
+    <div id="project-overlay" class="overlay">
+        <div class="overlay-content paper reveal-modal">
+                <button class="close-btn-fixed" onclick="closeProject()">×</button>
+                <div id="project-detail-body">
+                    <!-- Details injected here -->
+                </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="main.js" type="module"></script>
+</body>
+</html>
